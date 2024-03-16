@@ -3,9 +3,23 @@ import Header from './Header';
 import Title from '../shared/Title';
 import { Grid } from '@mui/material';
 import ChatList from '../speific/ChatList';
+import { samplechats } from '../../constants/sampleData';
+import { useParams } from 'react-router-dom';
+import Profile from '../speific/Profile';
 
-const AppLayout = (WrappedComponent) => {
-  return (props) => (
+
+const AppLayout= () => (WrappedComponent) => {
+  
+  return (props) => {
+
+    const params = useParams();
+    const chatId = params.chatId
+    const handleDeleteChat = (e,_id,groupchat)=>{
+      e.preventDefault();
+      console.log("Delete Chat",_id,groupchat);
+    }
+  
+    return(
     <>
       <Title title={'Chat app'} />
       <Header />
@@ -18,7 +32,15 @@ const AppLayout = (WrappedComponent) => {
           height={'100%'}
           bgcolor={'primary'} // Assuming primary is defined elsewhere
         >
-          <ChatList chats={[1,2,3,4,5]}/>
+          <ChatList chats={samplechats} 
+           newMessagesAlert={[{
+            chatId,
+            count:0,
+           }]}
+           chatId={chatId} 
+           onlineUsers={["1","2"]}
+           handleDeleteChat={handleDeleteChat}
+          />
         </Grid>
         <Grid
           item
@@ -43,11 +65,11 @@ const AppLayout = (WrappedComponent) => {
             bgcolor: 'rgba(0,0,0,0.85)',
           }}
         >
-          Second
+          <Profile/>
         </Grid>
       </Grid>
-    </>
-  );
+    </>)
+  };
 };
 
 export default AppLayout;

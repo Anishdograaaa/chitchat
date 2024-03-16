@@ -7,4 +7,4 @@ const Groups = () => {
   )
 }
 
-export default AppLayout(Groups)
+export default AppLayout()(Groups)

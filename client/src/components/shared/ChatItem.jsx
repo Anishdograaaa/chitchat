@@ -1,15 +1,30 @@
 import React, { memo } from 'react'
 import { Link } from '../styles/StyledComponents'
-import { Stack, Typography } from '@mui/material'
+import {  Box, Stack, Typography } from '@mui/material'
+import AvatarCard from './AvatarCard'
 // import { Link } from ''
 
 const ChatItem = (
     {
-        
+        avatar=[],
+        name,
+        _id,
+        groupChat = false,
+        sameSender,
+        isOnline,
+        newMessageAlert,
+        index = 0,
+        handleDeleteChat
     }
 ) => {
   return (
-   <Link to={`/chat/${_id}`} onContextMenu={(e)=>handleDeleteChatOpen(e,_id,groupChat)}>
+   <Link 
+    to={`/chat/${_id}`}
+    onContextMenu={(e)=>handleDeleteChat(e,_id,groupChat)}
+    sx={{
+      padding:"0rem"
+    }}
+    >
     <div style={{
         display:"flex",
         alignItems:"center",
@@ -18,12 +33,13 @@ const ChatItem = (
         color:sameSender?"white":"unset",
         position:"relative"
     }}>
+      <AvatarCard avatar={avatar}/>
       <Stack>
         <Typography>{name}</Typography>
-        {newMessageAlert && (
-            <Typography>{newMessageAlert.count} New message</Typography>
-        )}
-        {
+        {/* {newMessageAlert && (
+            // <Typography>{newMessageAlert.count} New message</Typography>
+        )} */}
+        {/* {
             isOnline && (<Box
               sx={{
                 width:"10px",
@@ -34,9 +50,10 @@ const ChatItem = (
                 top:"50%",
                 right:"1rem",
                 transform:"translateY(-50%)"
-              }}
+              }
+            }
             />)
-        }
+        } */}
       </Stack>
     </div>
    </Link>
